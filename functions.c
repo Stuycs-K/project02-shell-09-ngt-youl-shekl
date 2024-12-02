@@ -10,6 +10,13 @@
 #include <dirent.h>
 #include "functions.h"
 
-int main() {
 
+void parse_args( char * line, char ** arg_ary ) {
+  char *token;
+  int index = 0;
+  while (token = strsep(&line, " ")) {
+    arg_ary[index] = token;
+    index++;
+  }
+  arg_ary[index] = NULL;
 }
