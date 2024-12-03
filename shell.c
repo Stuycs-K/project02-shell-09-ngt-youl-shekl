@@ -15,14 +15,14 @@ int main() {
         char** cmd_list[256];
         char* cmd[256];
         char line[256];
-        printf("Enter Command : \n");
+        syspath();
         fgets(line, sizeof(line), stdin);
         parse_semicolon(line, cmd);
         for (int i = 0; cmd[i] != NULL; i++) {
             char* args[25];
             parse_args(cmd[i], args);
-            // fork and execvp each command 
-            execvp(args[0], args);            
+            // fork and execvp each command
+            execvp(args[0], args);
         }
         // if (strchr(';', cmd) == NULL) {
         //     parse_args(line, cmd);

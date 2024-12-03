@@ -13,7 +13,7 @@
 void parse_args( char * line, char ** arg_ary ) {
   char *token;
   int index = 0;
-  while (token = strsep(&line, " ")) {
+  while ((token = strsep(&line, " "))) {
     arg_ary[index] = token;
     index++;
   }
@@ -23,13 +23,25 @@ void parse_args( char * line, char ** arg_ary ) {
 void parse_semicolon(char* line, char ** list) {
   int list_index = 0;
   char* cmd_token;
-  while (cmd_token = strsep(&line, ";")) {
+  while ((cmd_token = strsep(&line, ";"))) {
     // char* cmd[256];
     // parse_args(cmd_token, cmd);
     list[list_index] = cmd_token;
     list_index++;
   }
   list[list_index] = NULL;
+}
+
+void syspath() {
+  char * cwd;
+  char buff[PATH_MAX];
+  cwd = getcwd(buff, PATH_MAX);
+  printf("%s$ ", cwd);
+  fflush(stdout);
+}
+
+void pathch() {
+  
 }
 
 void error() {
