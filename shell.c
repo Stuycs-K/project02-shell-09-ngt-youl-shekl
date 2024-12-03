@@ -17,11 +17,18 @@ int main() {
         char line[256];
         printf("Enter Command : \n");
         fgets(line, sizeof(line), stdin);
-        if (strchr(';', cmd) == NULL) {
-            parse_args(line, cmd);
-        } else {
-            parse_semicolon(line, cmd_list);
+        parse_semicolon(line, cmd);
+        for (int i = 0; cmd[i] != NULL; i++) {
+            char* args[25];
+            parse_args(cmd[i], args);
+            // fork and execvp each command 
+            execvp(args[0], args);            
         }
+        // if (strchr(';', cmd) == NULL) {
+        //     parse_args(line, cmd);
+        // } else {
+        //     parse_semicolon(line, cmd_list);
+        // }
         //printf("%s", cmd);
         //execvp(cmd[0], cmd);
     }
