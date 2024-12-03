@@ -24,8 +24,6 @@ void parse_semicolon(char* line, char ** list) {
   int list_index = 0;
   char* cmd_token;
   while (cmd_token = strsep(&line, ";")) {
-    // char* cmd[256];
-    // parse_args(cmd_token, cmd);
     list[list_index] = cmd_token;
     list_index++;
   }
