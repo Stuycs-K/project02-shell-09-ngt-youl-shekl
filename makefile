@@ -5,11 +5,11 @@ default: run
 compile: shell.o functions.o
 	@gcc -o shell shell.o functions.o
 
-shell.o: shell.c
+shell.o: shell.c functions.h 
 	@gcc -c shell.c -Wall
 
-functions.o: funcitons.c
-	@gcc -c funcitons.c -Wall
+functions.o: functions.c
+	@gcc -c functions.c -Wall
 
 run: compile
 	@./shell 
