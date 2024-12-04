@@ -76,8 +76,6 @@ void run_cd(char ** args) {
     if (getcwd(curr_dir, sizeof(curr_dir)) == NULL) {
         perror("curr getcwd() error\n");
     }
-    printf("curr dir : %s\n", curr_dir);
-    printf("change dir : %s\n", args[1]);
     if (chdir(args[1]) != 0) {
         perror("chdir() failed\n");
     }
@@ -85,5 +83,4 @@ void run_cd(char ** args) {
     if (getcwd(new_dir, sizeof(new_dir)) == NULL) {
         perror("new getcwd() error\n");
     }
-    printf("new dir : %s\n", new_dir);
 }
