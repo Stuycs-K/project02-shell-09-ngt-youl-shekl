@@ -41,11 +41,30 @@ void syspath() {
 }
 
 void pathch() {
-  
+
 }
 
 void error() {
     printf("errno %d\n",errno);
     printf("%s\n",strerror(errno));
     exit(1);
+}
+
+void run_cmd(char **args) {
+  pid_t p = fork();
+  if (p < 0) {
+    perror("fork failed");
+    exit(1);
+  }
+  else if (p == 0) {
+    execvp(args[0], args);
+  }
+  else {
+    int status;
+    pid_t childPid = wait(&status);
+    if (childPid == -1) {
+      perror("wait error");
+      exit(1);
+    }
+  }
 }
