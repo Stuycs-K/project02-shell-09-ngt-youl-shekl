@@ -13,9 +13,11 @@
 void parse_args( char * line, char ** arg_ary ) {
   char *token;
   int index = 0;
-  while (token = strsep(&line, " ")) {
-    arg_ary[index] = token;
-    index++;
+  while (token = strsep(&line, " \n")) {
+    if (token[0] != '\0') {
+      arg_ary[index] = token;
+      index++;
+    }
   }
   arg_ary[index] = NULL;
 }

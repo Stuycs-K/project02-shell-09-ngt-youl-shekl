@@ -35,15 +35,15 @@ void run_cmd(char **args) {
 
 int main() {
     while (1) {
-        // char** cmd_list[256];
         char* cmd[256];
         char line[256];
-        printf("Enter Command : \n");
+        printf("Enter Command :  ");
         fgets(line, sizeof(line), stdin);
         parse_semicolon(line, cmd);
         for (int i = 0; cmd[i] != NULL; i++) {
             char* args[256];
             parse_args(cmd[i], args);
+            //execvp(args[0], args);
             run_cmd(args);
         }
     }
