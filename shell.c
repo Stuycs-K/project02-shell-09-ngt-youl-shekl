@@ -12,7 +12,6 @@
 
 int main() {
     while (1) {
-        // char** cmd_list[256];
         char* cmd[256];
         char line[256];
         syspath();
