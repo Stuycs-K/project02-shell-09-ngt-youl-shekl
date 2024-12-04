@@ -10,28 +10,12 @@
 #include <dirent.h>
 #include "functions.h"
 
-void run_cd(char ** args) {
-    char curr_dir[256]; 
-    if (getcwd(curr_dir, sizeof(curr_dir)) == NULL) {
-        perror("curr getcwd() error\n");
-    }
-    printf("curr dir : %s\n", curr_dir);
-    printf("change dir : %s\n", args[1]);
-    if (chdir(args[1]) != 0) {
-        perror("chdir() failed\n");
-    }
-    char new_dir[256]; 
-    if (getcwd(new_dir, sizeof(new_dir)) == NULL) {
-        perror("new getcwd() error\n");
-    }
-    printf("new dir : %s\n", new_dir);
-}
-
 int main() {
     while (1) {
+        // char** cmd_list[256];
         char* cmd[256];
         char line[256];
-        printf("Enter Command :  ");
+        syspath();
         if (fgets(line, sizeof(line), stdin) == NULL) {
             printf("EOF\n");
             exit(1);
@@ -46,6 +30,6 @@ int main() {
                 run_cmd(args);
             }
         }
-        
+
     }
 }
