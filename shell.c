@@ -32,7 +32,10 @@ int main() {
         char* cmd[256];
         char line[256];
         printf("Enter Command :  ");
-        fgets(line, sizeof(line), stdin);
+        if (fgets(line, sizeof(line), stdin) == NULL) {
+            printf("EOF\n");
+            exit(1);
+        };
         parse_semicolon(line, cmd);
         for (int i = 0; cmd[i] != NULL; i++) {
             char* args[256];
