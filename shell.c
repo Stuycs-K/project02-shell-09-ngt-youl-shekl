@@ -10,28 +10,22 @@
 #include <dirent.h>
 #include "functions.h"
 
-
-void run_cmd(char **args) {
-  pid_t p = fork();
-  if (p < 0) {
-    perror("fork failed");
-    exit(1);
-  }
-  else if (p == 0) {
-    execvp(args[0], args);
-  }
-  else {
-    // parent
-    int status;
-    pid_t childPid = wait(&status);
-    if (childPid == -1) {
-      perror("wait error");
-      exit(1);
+void run_cd(char ** args) {
+    char curr_dir[256]; 
+    if (getcwd(curr_dir, sizeof(curr_dir)) == NULL) {
+        perror("curr getcwd() error\n");
     }
-    // printf("command done\n");
-  }
+    printf("curr dir : %s\n", curr_dir);
+    printf("change dir : %s\n", args[1]);
+    if (chdir(args[1]) != 0) {
+        perror("chdir() failed\n");
+    }
+    char new_dir[256]; 
+    if (getcwd(new_dir, sizeof(new_dir)) == NULL) {
+        perror("new getcwd() error\n");
+    }
+    printf("new dir : %s\n", new_dir);
 }
-
 
 int main() {
     while (1) {
@@ -43,8 +37,12 @@ int main() {
         for (int i = 0; cmd[i] != NULL; i++) {
             char* args[256];
             parse_args(cmd[i], args);
-            //execvp(args[0], args);
-            run_cmd(args);
+            if (strcmp(args[0], "cd") == 0) {
+                run_cd(args);
+            } else {
+                run_cmd(args);
+            }
         }
+        
     }
 }
