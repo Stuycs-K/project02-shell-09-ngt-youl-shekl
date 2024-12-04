@@ -42,10 +42,6 @@ void syspath() {
   fflush(stdout);
 }
 
-void pathch() {
-
-}
-
 void error() {
     printf("errno %d\n",errno);
     printf("%s\n",strerror(errno));
