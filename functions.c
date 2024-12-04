@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include "functions.h"
+#define PATH_MAX 1024
 
 void parse_args( char * line, char ** arg_ary ) {
   char *token;
