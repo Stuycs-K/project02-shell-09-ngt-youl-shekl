@@ -12,7 +12,6 @@
 
 int main() {
     while (1) {
-        // char** cmd_list[256];
         char* cmd[256];
         char line[256];
         syspath();
@@ -32,6 +31,8 @@ int main() {
             }
             if (strcmp(args[0], "cd") == 0) {
                 run_cd(args);
+//            } else if (strcmp(args[0]), "exit") {
+//
             } else {
                 run_cmd(args);
             }
