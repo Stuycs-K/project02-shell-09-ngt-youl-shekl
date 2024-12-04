@@ -25,8 +25,9 @@ int main() {
             char* args[256];
             parse_args(cmd[i], args);
             for (int j = 0; args[j] != NULL; j++) {
-              if (args[j] == '>') {
-                printf("%s to %s\n", args[j - 1], args[j + 1]);
+                // printf("'%s'\n", args[j]);
+              if (strcmp(args[j], ">") == 0 || strcmp(args[j], "<") == 0) {
+                redirect(args, j);
               }
             }
             if (strcmp(args[0], "cd") == 0) {

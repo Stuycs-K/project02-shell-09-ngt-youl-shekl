@@ -6,4 +6,5 @@ void error();
 void syspath();
 void run_cmd(char **args);
 void run_cd(char ** args);
+void redirect(char **args, int index);
 #endif

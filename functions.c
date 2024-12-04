@@ -10,6 +10,7 @@
 #include <dirent.h>
 #include "functions.h"
 
+
 void parse_args( char * line, char ** arg_ary ) {
   char *token;
   int index = 0;
@@ -89,10 +90,19 @@ void run_cd(char ** args) {
 }
 
 
-void redirect(char **args) {
-
+void redirect(char **args, int index) {
+  // redirect stdout
+  if (strcmp(args[index], ">") == 0) {
+    printf("in file: %s\n", args[index - 1]);
+    printf("out file: %s\n", args[index + 1]);
+  }
+  // redirect stdin
+  else {
+    printf("in file: %s\n", args[index + 1]);
+    printf("out file: %s\n", args[index - 1]);
+  }
   // int fd1 = open("foo.txt", O_WRONLY);
-  // int FILENO = 1;
+  // int FILENO = STDOUT_FILENO;
   // int backup_stdout = dup( FILENO ) // save stdout for later
   // dup2(fd1, FILENO) //sets FILENO's entry to the file for fd1.
   // printf("TO THE FILE!!!\n");
