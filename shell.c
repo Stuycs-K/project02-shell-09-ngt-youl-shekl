@@ -26,6 +26,8 @@ int main() {
             parse_args(cmd[i], args);
             if (strcmp(args[0], "cd") == 0) {
                 run_cd(args);
+//            } else if (strcmp(args[0]), "exit") {
+//
             } else {
                 run_cmd(args);
             }
