@@ -24,6 +24,11 @@ int main() {
         for (int i = 0; cmd[i] != NULL; i++) {
             char* args[256];
             parse_args(cmd[i], args);
+            for (int j = 0; args[j] != NULL; j++) {
+              if (args[j] == '>') {
+                printf("%s to %s\n", args[j - 1], args[j + 1]);
+              }
+            }
             if (strcmp(args[0], "cd") == 0) {
                 run_cd(args);
             } else {
