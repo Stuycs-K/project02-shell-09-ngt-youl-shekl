@@ -5,4 +5,5 @@ void parse_semicolon(char* line, char ** list);
 void error();
 void syspath();
 void run_cmd(char **args);
+void run_cd(char ** args);
 #endif
