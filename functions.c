@@ -62,7 +62,7 @@ void syspath() {
     fflush(stdout);
   } else {
     printf("%s$ ", cwd);
-   fflush(stdout);
+    fflush(stdout);
   }
 }
 
