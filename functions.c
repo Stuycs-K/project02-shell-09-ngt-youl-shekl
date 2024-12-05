@@ -36,11 +36,20 @@ void parse_semicolon(char* line, char ** list) {
 }
 
 void syspath() {
+  char * home = getenv("HOME");
+  size_t homelen = strlen(home);
   char * cwd;
   char buff[PATH_MAX];
   cwd = getcwd(buff, PATH_MAX);
-  printf("%s$ ", cwd);
-  fflush(stdout);
+  size_t cwdlen = strlen(cwd);
+  if (strncmp(home, cwd, homelen) == 0) {
+    cwd += homelen;
+    printf("%s$ ", cwd);
+    fflush(stdout);
+  } else {
+    printf("%s$ ", cwd);
+    fflush(stdout);
+  }
 }
 
 void error() {
