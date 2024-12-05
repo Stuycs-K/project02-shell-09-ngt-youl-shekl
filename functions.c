@@ -106,15 +106,15 @@ void run_cd(char ** args) {
 }
 
 void run_pipe(char * line) {
-  //there is a space before second cmd, might be a problem 
-  char* cmd[10]; 
+  //there is a space before second cmd, might be a problem
+  char* cmd[10];
   parse_pipe(line, cmd);
   // for (int i = 0; cmd[i] != NULL; i++) {
   //   printf("%s\n", cmd[i]);
   // }
 
 
-  FILE* first_cmd; 
+  FILE* first_cmd;
   char stdout_info[1024];
   first_cmd = popen(cmd[0], "r");
   if (first_cmd == NULL) {
@@ -131,8 +131,8 @@ void run_pipe(char * line) {
     //printf("%s\n", stdout_info);
     fputs(stdout_info, scnd_cmd);
   }
-  
+
   fclose(first_cmd);
-  
+
   fclose(scnd_cmd);
 }
