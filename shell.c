@@ -14,6 +14,8 @@ int main() {
     while (1) {
         char* cmd[256];
         char line[256];
+        char * home = getenv("HOME");
+        printf("Home: %s\n", home);
         syspath();
         if (fgets(line, sizeof(line), stdin) == NULL) {
             printf("EOF\n");
