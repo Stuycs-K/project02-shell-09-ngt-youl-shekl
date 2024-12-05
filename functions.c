@@ -96,9 +96,13 @@ void run_cd(char ** args) {
     if (getcwd(curr_dir, sizeof(curr_dir)) == NULL) {
         perror("curr getcwd() error\n");
     }
-    if (chdir(args[1]) != 0) {
-        perror("chdir() failed\n");
-    }
+    if (args[1] == NULL && chdir("/home/") != 0) {
+      perror("cd null not working");
+    } else {
+        if (chdir(args[1]) != 0) {
+          perror("chdir() failed\n");
+        }
+      }
     char new_dir[256];
     if (getcwd(new_dir, sizeof(new_dir)) == NULL) {
         perror("new getcwd() error\n");
