@@ -3,11 +3,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/stat.h>
 #include <errno.h>
 #include <time.h>
+#include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <dirent.h>
+#include <signal.h>
 #include "functions.h"
 #define PATH_MAX 1024
 
@@ -89,6 +91,13 @@ void redirect(char **args, int index) {
   if (strcmp(args[index], ">") == 0) {
     printf("in file: %s\n", args[index - 1]);
     printf("out file: %s\n", args[index + 1]);
+    int fd1 = open(args[index + 1], O_WRONLY | O_CREAT);
+    int FILENO = STDOUT_FILENO;
+    int backup_stdout = dup(FILENO); // save stdout for later
+    dup2(fd1, FILENO); //sets FILENO's entry to the file for fd1.
+    // printf("TO THE FILE!!!\n");
+    fflush(stdout);//not needed when a child process exits, becaue exiting a process will flush automatically.
+    dup2(backup_stdout, FILENO); //sets FILENO's entry to backup_stdout, which is stdout
   }
   // redirect stdin
   else {
