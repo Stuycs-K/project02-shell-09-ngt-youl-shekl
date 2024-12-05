@@ -96,6 +96,15 @@ void run_cd(char ** args) {
     if (getcwd(curr_dir, sizeof(curr_dir)) == NULL) {
         perror("curr getcwd() error\n");
     }
+    char * home = getenv("HOME");
+    size_t homelen = strlen(home);
+    char * cwd;
+    char buff[PATH_MAX];
+    cwd = getcwd(buff, PATH_MAX);
+    size_t cwdlen = strlen(cwd);
+    if (strncmp(home, cwd, homelen) == 0 && chdir) {
+      
+    }
     if (args[1] == NULL && chdir("/home/") != 0) {
       perror("cd null not working");
     } else {
