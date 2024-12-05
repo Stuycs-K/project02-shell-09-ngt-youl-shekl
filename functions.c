@@ -44,11 +44,13 @@ void syspath() {
   size_t cwdlen = strlen(cwd);
   if (strncmp(home, cwd, homelen) == 0) {
     cwd += homelen;
-    printf("%s$ ", cwd);
+    char newcwd[PATH_MAX];
+    sprintf(newcwd, "~%s", cwd); 
+    printf("%s$ ", newcwd);
     fflush(stdout);
   } else {
     printf("%s$ ", cwd);
-    fflush(stdout);
+   fflush(stdout);
   }
 }
 
