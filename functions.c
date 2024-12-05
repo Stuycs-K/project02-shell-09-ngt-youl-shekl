@@ -120,7 +120,7 @@ void run_pipe(char * line) {
   if (first_cmd == NULL) {
     perror("first cmd popen failed");
   }
-  
+
   FILE* scnd_cmd;
   scnd_cmd = popen(cmd[1], "w");
   if (scnd_cmd == NULL) {
