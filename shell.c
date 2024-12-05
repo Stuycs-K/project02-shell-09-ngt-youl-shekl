@@ -17,7 +17,7 @@ int main() {
         syspath();
         if (fgets(line, sizeof(line), stdin) == NULL) {
             printf("EOF\n");
-            exit(1);
+            exit(0); // should be zero so no error is printed
         };
         parse_semicolon(line, cmd);
         for (int i = 0; cmd[i] != NULL; i++) {
