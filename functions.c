@@ -96,17 +96,8 @@ void run_cd(char ** args) {
     if (getcwd(curr_dir, sizeof(curr_dir)) == NULL) {
         perror("curr getcwd() error\n");
     }
-    char * home = getenv("HOME");
-    size_t homelen = strlen(home);
-    char * cwd;
-    char buff[PATH_MAX];
-    cwd = getcwd(buff, PATH_MAX);
-    size_t cwdlen = strlen(cwd);
-    if (strncmp(home, cwd, homelen) == 0 && chdir) {
-      
-    }
-    if (args[1] == NULL && chdir("/home/") != 0) {
-      perror("cd null not working");
+    if (args[1] == NULL) {
+      printf("typing just 'cd' not supported in this version\n");
     } else {
         if (chdir(args[1]) != 0) {
           perror("chdir() failed\n");
@@ -119,33 +110,33 @@ void run_cd(char ** args) {
 }
 
 void run_pipe(char * line) {
-  //there is a space before second cmd, might be a problem
-  char* cmd[10];
-  parse_pipe(line, cmd);
-  // for (int i = 0; cmd[i] != NULL; i++) {
-  //   printf("%s\n", cmd[i]);
-  // }
+    //there is a space before second cmd, might be a problem
+    char* cmd[10];
+    parse_pipe(line, cmd);
+    // for (int i = 0; cmd[i] != NULL; i++) {
+    //   printf("%s\n", cmd[i]);
+    // }
 
 
-  FILE* first_cmd;
-  char stdout_info[1024];
-  first_cmd = popen(cmd[0], "r");
-  if (first_cmd == NULL) {
-    perror("first cmd popen failed");
-  }
+    FILE* first_cmd;
+    char stdout_info[1024];
+    first_cmd = popen(cmd[0], "r");
+    if (first_cmd == NULL) {
+      perror("first cmd popen failed");
+    }
 
-  FILE* scnd_cmd;
-  scnd_cmd = popen(cmd[1], "w");
-  if (scnd_cmd == NULL) {
-    perror("second cmd popen failed");
-  }
+    FILE* scnd_cmd;
+    scnd_cmd = popen(cmd[1], "w");
+    if (scnd_cmd == NULL) {
+      perror("second cmd popen failed");
+    }
 
-  while (fgets(stdout_info, sizeof(stdout_info), first_cmd) != NULL) {
-    //printf("%s\n", stdout_info);
-    fputs(stdout_info, scnd_cmd);
-  }
+    while (fgets(stdout_info, sizeof(stdout_info), first_cmd) != NULL) {
+      //printf("%s\n", stdout_info);
+      fputs(stdout_info, scnd_cmd);
+    }
 
-  fclose(first_cmd);
+    fclose(first_cmd);
 
-  fclose(scnd_cmd);
+    fclose(scnd_cmd);
 }
