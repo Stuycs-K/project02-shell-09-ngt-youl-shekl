@@ -35,6 +35,18 @@ void parse_semicolon(char* line, char ** list) {
   list[list_index] = NULL;
 }
 
+void parse_pipe(char* line, char ** list) {
+  int list_index = 0;
+  char* cmd_token;
+  while (cmd_token = strsep(&line, "|\n")) {
+    if (cmd_token[0] != '\0') {
+      list[list_index] = cmd_token;
+      list_index++;
+    }
+  }
+  list[list_index] = NULL;
+}
+
 void syspath() {
   char * cwd;
   char buff[PATH_MAX];
@@ -84,4 +96,36 @@ void run_cd(char ** args) {
     if (getcwd(new_dir, sizeof(new_dir)) == NULL) {
         perror("new getcwd() error\n");
     }
+}
+
+void run_pipe(char * line) {
+  //there is a space before second cmd, might be a problem 
+  char* cmd[10]; 
+  parse_pipe(line, cmd);
+  // for (int i = 0; cmd[i] != NULL; i++) {
+  //   printf("%s\n", cmd[i]);
+  // }
+
+
+  FILE* first_cmd; 
+  char stdout_info[1024];
+  first_cmd = popen(cmd[0], "r");
+  if (first_cmd == NULL) {
+    perror("first cmd popen failed");
+  }
+  
+  FILE* scnd_cmd;
+  scnd_cmd = popen(cmd[1], "w");
+  if (scnd_cmd == NULL) {
+    perror("second cmd popen failed");
+  }
+
+  while (fgets(stdout_info, sizeof(stdout_info), first_cmd) != NULL) {
+    //printf("%s\n", stdout_info);
+    fputs(stdout_info, scnd_cmd);
+  }
+  
+  fclose(first_cmd);
+  
+  fclose(scnd_cmd);
 }
