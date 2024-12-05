@@ -89,28 +89,37 @@ void run_cd(char ** args) {
 void redirect(char **args, int index) {
   // redirect stdout
   if (strcmp(args[index], ">") == 0) {
-    printf("in file: %s\n", args[index - 1]);
     printf("out file: %s\n", args[index + 1]);
-    int fd1 = open(args[index + 1], O_WRONLY | O_CREAT);
-    int FILENO = STDOUT_FILENO;
-    int backup_stdout = dup(FILENO); // save stdout for later
-    dup2(fd1, FILENO); //sets FILENO's entry to the file for fd1.
+
+    // int fd1 = open("foo.txt", O_WRONLY);
+    // int stdout = STDOUT_FILENO;//stdout filenumber is 1, but this makes it clear
+    // int backup_stdout = dup( stdout ); // save for later
+    // dup2(fd1, stdout); //sets stdout's entry to the file "foo.txt".
     // printf("TO THE FILE!!!\n");
-    fflush(stdout);//not needed when a child process exits, becaue exiting a process will flush automatically.
-    dup2(backup_stdout, FILENO); //sets FILENO's entry to backup_stdout, which is stdout
+    // fflush(stdout);//not needed when a child process exits, becaue exiting a process will flush automatically.
+    // dup2(backup_stdout, stdout); //sets the stdout entry to backup_stdout, which is the original stdout
+
+
+    // int fd1 = open(args[index + 1], O_WRONLY | O_CREAT);
+    // int backup_stdout = dup(stdout); // save for later
+    // int stdout = STDOUT_FILENO;//stdout filenumber is 1, but this makes it clear
+    // dup2(fd1, stdout); //sets stdout's entry to the file "foo.txt".
+    // printf("asdasdasdadas\n");
+    // char cmd[256];
+    // for (int i = 0; i < index; i++) {
+    //   strncat(cmd, args[index], sizeof(args[index]));
+    //   // printf("%s\n", args[i]);
+    // }
+    // printf("%s\n", cmd);
+    // fflush(stdout);//not needed when a child process exits, becaue exiting a process will flush automatically.
+    // dup2(backup_stdout, stdout); //sets the stdout entry to backup_stdout, which is the original stdout
+
+
   }
   // redirect stdin
   else {
     printf("in file: %s\n", args[index + 1]);
     printf("out file: %s\n", args[index - 1]);
   }
-  // int fd1 = open("foo.txt", O_WRONLY);
-  // int FILENO = STDOUT_FILENO;
-  // int backup_stdout = dup( FILENO ) // save stdout for later
-  // dup2(fd1, FILENO) //sets FILENO's entry to the file for fd1.
-  // printf("TO THE FILE!!!\n");
-  // fflush(stdout);//not needed when a child process exits, becaue exiting a process will flush automatically.
-  // dup2(backup_stdout, FILENO) //sets FILENO's entry to backup_stdout, which is stdout
-
 
 }
