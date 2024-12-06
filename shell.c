@@ -23,7 +23,8 @@ int main() {
         for (int i = 0; cmd[i] != NULL; i++) {
             if (strchr(cmd[i], '|') != NULL) {
                 run_pipe(cmd[i]);
-            } else {
+            } 
+            else if (strchr(cmd[i], '>') != NULL || strchr(cmd[i], '<') != NULL) {
                 char* args[256];
                 parse_args(cmd[i], args);
                 for (int j = 0; args[j] != NULL; j++) {
@@ -32,6 +33,11 @@ int main() {
                         redirect(args, j);
                     }
                 }
+            }
+
+            else {
+                char* args[256];
+                parse_args(cmd[i], args);
                 if (strcmp(args[0], "cd") == 0) {
                     run_cd(args);
                 } else if (strcmp(args[0], "exit") == 0) {
