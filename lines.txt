@@ -1,0 +1,4 @@
+echo starting command
+cowsay i hate eric
+ls -l 
+cowsay goodbye
