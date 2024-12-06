@@ -114,36 +114,34 @@ void run_cd(char **args) {
 }
 
 void redirect(char **args, int index) {
-  // redirect stdout
+  int file, fileno;
+  int dir; // < is -1, > is 1
   if (strcmp(args[index], ">") == 0) {
-    int outfile = open(args[index + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (outfile == -1) {
-      perror("write file open error");
-      exit(1);
-    }
-    int backup_stdout = dup(STDOUT_FILENO);
-    dup2(outfile, STDOUT_FILENO);
-    args[index] = NULL;
-    run_cmd(args);
-    fflush(stdout);
-    dup2(backup_stdout, STDOUT_FILENO);
-    close(outfile);
+    file = open(args[index + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    fileno = STDOUT_FILENO;
+    dir = 1;
   }
-  // redirect stdin
-  else {
-    int infile = open(args[index + 1], O_RDONLY, 0644);
-    if (infile == -1) {
+  else if (strcmp(args[index], "<") == 0) {
+    file = open(args[index + 1], O_RDONLY, 0644);
+    fileno = STDIN_FILENO;
+    dir = -1;
+  }
+  if (file == -1) {
       perror("read file open error");
       exit(1);
-    }
-    int backup_stdin = dup(STDIN_FILENO);
-    dup2(infile, STDIN_FILENO);
-    args[index] = NULL;
-    run_cmd(args);
-    fflush(stdin);
-    dup2(backup_stdin, STDIN_FILENO);
-    close(infile);
   }
+  int backup = dup(fileno);
+  dup2(file, fileno);
+  args[index] = NULL;
+  run_cmd(args);
+  if (dir == 1) {
+    fflush(stdout);
+  }
+  else if (dir == -1) {
+    fflush(stdin);
+  }
+  dup2(backup, fileno);
+  close(file);
 }
 
 
