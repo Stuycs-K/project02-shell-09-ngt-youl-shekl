@@ -13,6 +13,12 @@
 #include "functions.h"
 #define PATH_MAX 1024
 
+/*
+Arguments : 
+Return Value : nothing 
+Explanation : parse_args takes a line that has commands in it and parses it by the spaces and puts it into the arg_ary, the given array of chars.
+              The function alost accounts for '\n' and blank strings.
+*/
 void parse_args(char *line, char **arg_ary) {
   char *token;
   int index = 0;
@@ -25,6 +31,12 @@ void parse_args(char *line, char **arg_ary) {
   arg_ary[index] = NULL;
 }
 
+/*
+Arguments : 
+Return Value : nothing
+Explanation : parse_semicolon takes a line that contains ';' in it and parses it by the ';' and puts it into the list, the given array of chars
+              The function alost accounts for '\n' and blank strings.
+*/
 void parse_semicolon(char *line, char **list) {
   int list_index = 0;
   char *cmd_token;
@@ -37,6 +49,12 @@ void parse_semicolon(char *line, char **list) {
   list[list_index] = NULL;
 }
 
+/*
+Arguments : 
+Return Value : nothing
+Explanation : parse_pipe takes a line that has '|' in it and parses it by the '|' and puts it into the list, the given array of chars
+              The function alost accounts for '\n' and blank strings.
+*/
 void parse_pipe(char *line, char **list) {
   int list_index = 0;
   char *cmd_token;
@@ -49,6 +67,11 @@ void parse_pipe(char *line, char **list) {
   list[list_index] = NULL;
 }
 
+/*
+Arguments : 
+Return Value : nothing
+Explanation : 
+*/
 void syspath() {
   char *home = getenv("HOME");
   size_t homelen = strlen(home);
@@ -69,12 +92,22 @@ void syspath() {
   }
 }
 
+/*
+Arguments : nothing
+Return Value : nothing
+Explanation : prints the errno message
+*/
 void error() {
   printf("errno %d\n", errno);
   printf("%s\n", strerror(errno));
   exit(1);
 }
 
+/*
+Arguments : 
+Return Value : nothing
+Explanation : run_cmd runs any command that execvp runs. It takes a array of char's and forks to process the commands using execvp.
+*/
 void run_cmd(char **args) {
   pid_t p = fork();
   if (p < 0) {
@@ -94,11 +127,18 @@ void run_cmd(char **args) {
   }
 }
 
+/*
+Arguments : 
+Return Value : nothing
+Explanation : run_cd runs the 'cd' command. It uses chdir() to change directories.
+*/
 void run_cd(char **args) {
+  /*
   char curr_dir[256];
   if (getcwd(curr_dir, sizeof(curr_dir)) == NULL) {
     perror("curr getcwd() error\n");
   }
+  */
   if (args[1] == NULL) {
     printf("typing just 'cd' not supported in this version\n");
   }
@@ -107,12 +147,19 @@ void run_cd(char **args) {
       perror("chdir() failed\n");
     }
   }
+  /*
   char new_dir[256];
   if (getcwd(new_dir, sizeof(new_dir)) == NULL) {
     perror("new getcwd() error\n");
   }
+  */
 }
 
+/*
+Arguments : 
+Return Value : nothing
+Explanation : 
+*/
 void redirect(char **args, int index) {
   int file, fileno;
   int dir; // < is -1, > is 1
@@ -144,7 +191,12 @@ void redirect(char **args, int index) {
   close(file);
 }
 
-
+/*
+Arguments : 
+Return Value : nothing
+Explanation : run_pipe runs any command given that contains '|'. It uses popen() to get stdout from the first command and pipe it into the stdin of the second command. 
+              popen() automatically runs any command when you close a file opened with 'w'.
+*/
 void run_pipe(char *line) {
   // there is a space before second cmd, might be a problem
   char *cmd[10];
