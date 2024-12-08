@@ -14,7 +14,9 @@
 #define PATH_MAX 1024
 
 /*
-Arguments : 
+Arguments :
+- char *line: the string to parse
+- char **arg_ary: the array in which the parsed strings are stored  
 Return Value : nothing 
 Explanation : parse_args takes a line that has commands in it and parses it by the spaces and puts it into the arg_ary, the given array of chars.
               The function alost accounts for '\n' and blank strings.
@@ -105,8 +107,9 @@ void error() {
 
 /*
 Arguments : 
+- char **args: array of strings storing the command that the user wants to run  
 Return Value : nothing
-Explanation : run_cmd runs any command that execvp runs. It takes a array of char's and forks to process the commands using execvp.
+Explanation : run_cmd runs any command that execvp runs. It takes a array of strings and forks to process the commands using execvp.
 */
 void run_cmd(char **args) {
   pid_t p = fork();
@@ -156,9 +159,11 @@ void run_cd(char **args) {
 }
 
 /*
-Arguments : 
+Arguments: 
+- char **args: array of strings storing the command that the user wants to run  
 Return Value : nothing
-Explanation : 
+Explanation : If the command that the user wants to execute contains '<' or '>', then this function will be called to direct stdin/stdout.
+The function calls run_cmd to run the program and then resets input/output back to stdin/stdout. 
 */
 void redirect(char **args, int index) {
   int file, fileno;

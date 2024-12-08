@@ -24,11 +24,12 @@ int main() {
             if (strchr(cmd[i], '|') != NULL) {
                 run_pipe(cmd[i]);
             } 
+            // check if redirect 
             else if (strchr(cmd[i], '>') != NULL || strchr(cmd[i], '<') != NULL) {
                 char* args[256];
                 parse_args(cmd[i], args);
                 for (int j = 0; args[j] != NULL; j++) {
-                    // printf("'%s'\n", args[j]);
+                    // find array index of the redirect 
                     if (strcmp(args[j], ">") == 0 || strcmp(args[j], "<") == 0) {
                         redirect(args, j);
                     }
