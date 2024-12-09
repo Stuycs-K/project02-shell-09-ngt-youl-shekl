@@ -77,7 +77,10 @@ void parse_pipe(char *line, char **list) {
 /*
 Arguments : nothing
 Return Value : nothing
-Explanation : 
+Explanation : syspath() prints out the current working directory, similar to bash. If in the home directory, the path is shortened with "~". 
+              We use getenv() to get the absolute path and replace the home directory portion with "~" by skipping it using homelen. We then 
+              concatenate the "~" with the rest of the path to get our shortened path. 
+              
 */
 void syspath() {
   char *home = getenv("HOME");
