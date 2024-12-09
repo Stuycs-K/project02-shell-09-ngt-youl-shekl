@@ -19,7 +19,7 @@
 
 
 /*
-Arguments :
+Arguments : the string taken from stdin; a char array to hold the parsed string
 - char *line: the string to parse
 - char **arg_ary: the array in which the parsed strings are stored  
 Return Value : nothing 
@@ -39,7 +39,7 @@ void parse_args(char *line, char **arg_ary) {
 }
 
 /*
-Arguments : 
+Arguments : the string taken from stdin; a char array to hold the parsed string
 Return Value : nothing
 Explanation : parse_semicolon takes a line that contains ';' in it and parses it by the ';' and puts it into the list, the given array of chars
               The function alost accounts for '\n' and blank strings.
@@ -57,7 +57,7 @@ void parse_semicolon(char *line, char **list) {
 }
 
 /*
-Arguments : 
+Arguments : the string taken from stdin; a char array to hold the parsed string
 Return Value : nothing
 Explanation : parse_pipe takes a line that has '|' in it and parses it by the '|' and puts it into the list, the given array of chars
               The function alost accounts for '\n' and blank strings.
@@ -75,7 +75,7 @@ void parse_pipe(char *line, char **list) {
 }
 
 /*
-Arguments : 
+Arguments : nothing
 Return Value : nothing
 Explanation : 
 */
@@ -111,7 +111,7 @@ void error() {
 }
 
 /*
-Arguments : 
+Arguments : a char array holding the commands 
 - char **args: array of strings storing the command that the user wants to run  
 Return Value : nothing
 Explanation : run_cmd runs any command that execvp runs. It takes a array of strings and forks to process the commands using execvp.
@@ -136,7 +136,7 @@ void run_cmd(char **args) {
 }
 
 /*
-Arguments : 
+Arguments : a char array holding the commands 
 Return Value : nothing
 Explanation : run_cd runs the 'cd' command. It uses chdir() to change directories.
 */
@@ -164,8 +164,7 @@ void run_cd(char **args) {
 }
 
 /*
-Arguments: 
-- char **args: array of strings storing the command that the user wants to run  
+Arguments: char **args: array of strings storing the command that the user wants to run  
 Return Value : nothing
 Explanation : If the command that the user wants to execute contains '<' or '>', then this function will be called to direct stdin/stdout.
 The function calls run_cmd to run the program and then resets input/output back to stdin/stdout. 
@@ -202,7 +201,7 @@ void redirect(char **args, int index) {
 }
 
 /*
-Arguments : 
+Arguments : the string with the commands (unparsed)
 Return Value : nothing
 Explanation : run_pipe runs any command given that contains '|'. It uses popen() to get stdout from the first command and pipe it into the stdin of the second command. 
               popen() automatically runs any command when you close a file opened with 'w'.
