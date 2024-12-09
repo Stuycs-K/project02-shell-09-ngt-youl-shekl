@@ -10,6 +10,7 @@
 #include <dirent.h>
 #include "functions.h"
 
+
 int main() {
     while (1) {
         char* cmd[256];

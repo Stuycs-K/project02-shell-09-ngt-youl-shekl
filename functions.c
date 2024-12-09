@@ -12,6 +12,11 @@
 #include <signal.h>
 #include "functions.h"
 #define PATH_MAX 1024
+#define BOLD_GREEN "\033[1;32m"
+#define BOLD_BLUE "\033[1;34m"
+#define RESET "\033[0m"
+
+
 
 /*
 Arguments :
@@ -85,11 +90,11 @@ void syspath() {
     cwd += homelen;
     char newcwd[PATH_MAX];
     sprintf(newcwd, "~%s", cwd);
-    printf("%s$ ", newcwd);
+    printf("%s%s%s$ ", BOLD_BLUE, newcwd, RESET);
     fflush(stdout);
   }
   else {
-    printf("%s$ ", cwd);
+    printf("%s%s%s$ ", BOLD_BLUE, cwd, RESET);
     fflush(stdout);
   }
 }
