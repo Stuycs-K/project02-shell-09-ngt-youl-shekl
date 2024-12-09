@@ -6,19 +6,19 @@
 ## Features 
 - any command from the terminal that execvp can run
 - cd
-⋅⋅⋅You can run the basic cd command, going up or down the path
+    - You can run the basic cd command, going up or down the path
 - prompt is shorted to ~/ ...
-⋅⋅⋅the the home path is shortened to ~ and will return to the original path when you cd above the home path
+    - the the home path is shortened to ~ and will return to the original path when you cd above the home path
 - prompt is also colored blue 
 - pipe
-⋅⋅⋅basic single piping 
+    - basic single piping 
 - redirect
-⋅⋅⋅basic redirection with just one > or < works
+    - basic redirection with just one > or < works
 
 ## Attempted  Features
 - allowing cd command to work with just 'cd ~' or 'cd' to go to home path
-⋅⋅⋅the terminal allows you to go to the home directory with just 'cd ~' or 'cd' but chdir() doesn't allow that.⋅⋅
-⋅⋅⋅We tried to figure a way around this but couldn't.
+    - the terminal allows you to go to the home directory with just 'cd ~' or 'cd' but chdir() doesn't allow that.
+    - We tried to figure a way around this but couldn't.
 
 ## Bugs
 - pressing Ctrl-D or typing exit should end the program but sometimes it doesn't work ... no idea why, but it seems to be fine most of the time?
